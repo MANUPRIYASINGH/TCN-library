@@ -17,12 +17,10 @@ class TemporalBottleneck(nn.Module):
                  dilation: int,
                  padding: int,
                  dropout=0.2,
-                 dropout_mode='standard',
                  batch_norm=False,
                  weight_norm=False,
                  groups=1,
-                 residual=True,
-                 force_downsample=False):
+                 residual=True):
         """Basically the same idea as a bottleneck layer in a ResNet, but now
         for a 1D convolutional network.
 
@@ -34,7 +32,7 @@ class TemporalBottleneck(nn.Module):
         super(TemporalBottleneck, self).__init__()
 
         n_intermediates, n_outputs = n_channels
-        requires_downsample = (n_inputs != n_outputs or force_downsample) and residual
+        requires_downsample = (n_inputs != n_outputs) and residual
 
         self.residual = residual
 
