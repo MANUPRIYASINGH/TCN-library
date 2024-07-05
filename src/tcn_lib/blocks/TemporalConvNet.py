@@ -18,13 +18,11 @@ class TemporalConvNet(nn.Sequential):
                  num_channels: List[Tuple[int, int]],
                  kernel_size: Union[int, List[int]],
                  dropout=0.2,
-                 dropout_mode='standard',
                  batch_norm=False,
                  weight_norm=False,
                  bottleneck=False,
                  groups=1,
                  residual=True,
-                 force_downsample=False,
                  zero_init_residual=False):
         if zero_init_residual == True and not batch_norm:
             raise ValueError(
@@ -49,12 +47,10 @@ class TemporalConvNet(nn.Sequential):
                       dilation=dilation_size,
                       padding=(block_kernel_size - 1) * dilation_size,
                       dropout=dropout,
-                      dropout_mode=dropout_mode,
                       batch_norm=batch_norm,
                       weight_norm=weight_norm,
                       groups=groups,
-                      residual=residual,
-                      force_downsample=force_downsample)
+                      residual=residual)
             ]
 
         super(TemporalConvNet, self).__init__(*layers)
